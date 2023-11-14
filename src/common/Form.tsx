@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CupcakeApi from './api';
+import CupcakeApi from '../api/api';
 
 function Form() {
     const initialFormData = {

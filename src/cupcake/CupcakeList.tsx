@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { CupcakeInterface } from './interfaces';
+import { CupcakeInterface } from '../interfaces';
 import Cupcake from './Cupcake';
-import CupcakeApi from './api';
+import CupcakeApi from '../api/api';
 
 function CupcakeList() {
 

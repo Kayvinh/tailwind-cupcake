@@ -1,4 +1,4 @@
-import { FormInterface } from "./interfaces";
+import { FormInterface } from "../interfaces";
 
 const BASE_URL = "http://localhost:8080";
 
@@ -22,6 +22,7 @@ class CupcakeApi {
         try {
           const response = await fetch(apiUrl, requestOptions);
     
+          //NOTE: Make sure server is returning response, ex: check DELETE mappings
           if (!response.ok) {
             console.error("API Error:", response);
             const errorMessage = await response.json();
@@ -33,6 +34,8 @@ class CupcakeApi {
           console.error("Fetch Error:", err);
           throw err;
         }
+
+
     }
 
     // Individual API Routes
@@ -41,9 +44,20 @@ class CupcakeApi {
         return res;
     }
 
+    static async getCupcake(id?: string) {
+      let res = await this.request(`cupcakes/${id}`);
+      return res;
+    }
+
     static async createCupcake(formData: FormInterface) {
         let res = await this.request('cupcakes', formData, "post");
         return res;
+    }
+
+    static async deleteCupcake(id?: string) {
+        await this.request(`cupcakes/${id}`, {}, "DELETE");
+        console.log("Cupcake deleted successfully!");
+
     }
 }
 

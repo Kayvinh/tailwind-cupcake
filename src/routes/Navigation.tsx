@@ -10,7 +10,7 @@ function Navigation() {
                     <NavLink to="/add">Add Cupcake</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/">Cupcakes</NavLink>
+                    <NavLink to="/cupcakes">Cupcakes</NavLink>
                 </li>
             </ul>
 
