@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CupcakeInterface } from '../interfaces';
 import CupcakeApi from '../api/api';
+import Form from '../common/Form';
 
 function CupcakeDetail() {
     const [cupcakeDetails, setCupcakeDetails] = useState<CupcakeInterface | null>(null);
+    const [isEditing, setIsEditing] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -23,18 +25,29 @@ function CupcakeDetail() {
         navigate("/cupcakes");
     }
 
+
+    function toggleEdit() {
+        setIsEditing(edit => !edit);
+    }
+
     return (
         <div className='CupcakeDetail'>
+
+            <div>
                 {cupcakeDetails ? (
                     <div>   
                         <p>Flavor: {cupcakeDetails.flavor}, Size: {cupcakeDetails.size}, Rating: {cupcakeDetails.rating}</p>
                         <img src={cupcakeDetails.image} alt={`cupcake-${cupcakeDetails.size}-${cupcakeDetails.flavor}`}/>
-                        <button>Edit</button>
+                        <button onClick={toggleEdit}>Edit</button>
                         <button onClick={handleDelete}>Delete</button>
+
+                        {isEditing ? (<Form initialFormData={cupcakeDetails || undefined}/>) : null}
                     </div>
                 ): (
                     <p>Sorry! cupcake not found.</p>
                 )}
+            </div>
+            
         </div>
     );
 }

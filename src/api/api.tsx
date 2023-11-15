@@ -22,20 +22,12 @@ class CupcakeApi {
         try {
           const response = await fetch(apiUrl, requestOptions);
     
-          //NOTE: Make sure server is returning response, ex: check DELETE mappings
-          if (!response.ok) {
-            console.error("API Error:", response);
-            const errorMessage = await response.json();
-            throw Array.isArray(errorMessage) ? errorMessage : [errorMessage];
-          }
-    
           return await response.json();
-        } catch (err) {
-          console.error("Fetch Error:", err);
-          throw err;
+        } catch (err: any) {
+          console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
-
-
     }
 
     // Individual API Routes
@@ -53,11 +45,15 @@ class CupcakeApi {
         let res = await this.request('cupcakes', formData, "post");
         return res;
     }
+    
+
+    static async updateCupcake(id: string | number, formData: FormInterface) {
+      await this.request(`cupcakes/${id}`, formData, "PATCH");
+    }
 
     static async deleteCupcake(id?: string) {
         await this.request(`cupcakes/${id}`, {}, "DELETE");
         console.log("Cupcake deleted successfully!");
-
     }
 }
 

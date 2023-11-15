@@ -1,21 +1,36 @@
 import { useState } from 'react';
 import CupcakeApi from '../api/api';
+import { CupcakeInterface } from '../interfaces';
+import { useNavigate } from 'react-router-dom';
 
-function Form() {
-    const initialFormData = {
-        flavor: "",
-        size:"",
-        rating: "",
-        image:""
-    }
+const defaultInitialFormData = {
+    id: "",
+    flavor: "",
+    size:"",
+    rating: "",
+    image:""
+}
 
+interface FormProps {
+    initialFormData?: CupcakeInterface;
+}
+
+function Form({ initialFormData = defaultInitialFormData }: FormProps) {
     const [formData, setFormData] = useState(initialFormData);
+    const navigate = useNavigate();
+
 
     function handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
-        CupcakeApi.createCupcake(formData);
-        setFormData(initialFormData);
 
+        if(Number(initialFormData.id) > 0) {
+            CupcakeApi.updateCupcake(initialFormData.id, formData)
+        } else {
+            CupcakeApi.createCupcake(formData);
+            setFormData(initialFormData);
+        }
+
+        navigate("/cupcakes");
     }
 
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

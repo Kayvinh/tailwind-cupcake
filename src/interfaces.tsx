@@ -6,5 +6,5 @@ export interface FormInterface {
 }
 
 export interface CupcakeInterface extends FormInterface {
-    id: number;
+    id: number | string;
 }

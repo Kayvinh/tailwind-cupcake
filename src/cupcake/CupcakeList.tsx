@@ -4,7 +4,6 @@ import Cupcake from './Cupcake';
 import CupcakeApi from '../api/api';
 
 function CupcakeList() {
-
     const [cupcakes, setCupcakes] = useState<CupcakeInterface[] | null>(null);
 
     useEffect(function getAllCupcakesOnMount() {
