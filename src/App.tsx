@@ -6,7 +6,7 @@ import RoutesList from './routes/RoutesList';
 function App() {
 
   return (
-    <div className="App">
+    <div className="App bg-blue-200">
       <BrowserRouter>
         <Navigation />
         <RoutesList />
